@@ -1,0 +1,7 @@
+{
+    "name": "zara-4/crop-select-js",
+    "description": "A simple image cropping selection jQuery plugin.",
+    "keywords": ["jQuery", "image", "cropping"],
+    "license": "GNU GPL 3.0",
+    "type": "project"
+}
