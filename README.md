@@ -16,7 +16,7 @@ By [Zara 4 image compression](https://zara4.com) service
 
 - Bower: `bower install crop-select-js --save`
 - NPM: `npm install crop-select-js`
-- Zip: [Download](https://github.com/CropSelectJs/CropSelectJs/archive/master.zip)
+- Zip: [Download](https://github.com/zara-4/crop-select-js/archive/master.zip)
 
 You will need to include both `crop-select-js.min.js` and `crop-select-js.min.css` into your web page.
 
