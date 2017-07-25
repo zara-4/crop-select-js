@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Example 01 - Basic Examples | CropSelectJs</title>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- CropSelectJs files -->
+  <link href="../crop-select-js.min.css" rel="stylesheet" type="text/css" />
+  <script src="../crop-select-js.min.js"></script>
+
+  <!-- Not required, used for page layout -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="https://github.com/zara-4/crop-select-js" class="navbar-brand">CropSelectJs</a>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse" id="navbar-main">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Examples <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="download">
+              <li><a href="01_basic-example.html">01 - Basic Example</a></li>
+              <li><a href="02_uploader.html">02 - Uploader</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 80px">
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div id="crop-select"></div>
+
+        <hr/>
+
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td style="width: 50%"><b>Selection Image Scaled Width</b></td>
+            <td id="scaled-width"></td>
+          </tr>
+          <tr>
+            <td><b>Selection Image Scaled Height</b></td>
+            <td id="scaled-height"></td>
+          </tr>
+          <tr>
+            <td><b>Selection Image Scaled X</b></td>
+            <td id="scaled-x"></td>
+          </tr>
+          <tr>
+            <td><b>Selection Image Scaled Y</b></td>
+            <td id="scaled-y"></td>
+          </tr>
+        </table>
+
+        <hr/>
+
+      </div>
+      <div class="col-xs-12 col-md-6">
+
+        <div>
+          <button class="btn btn-default" id="select-all-btn">Select All</button>
+          <button class="btn btn-default" id="select-centre-btn">Select Centred Square</button>
+        </div>
+
+        <hr/>
+
+
+        <h4>Selection Ratio</h4>
+
+        <div class="clearfix">
+          <div class="form-group" style="width: 115px; float: left;">
+            <label class="control-label">Unlock Ratio</label>
+            <div>
+              <button id="unlock-ratio-btn" class="btn btn-default" type="button">Free Select</button>
+            </div>
+          </div>
+
+          <div class="form-group" style="width: 115px; float: left;">
+            <label class="control-label">Same as Image</label>
+            <div>
+              <button id="match-ratio-btn" class="btn btn-default" type="button">Match Ratio</button>
+            </div>
+          </div>
+
+          <div class="form-group" style="width: 190px; float: left">
+            <label class="control-label">Lock Ratio Selection</label>
+            <div class="input-group">
+              <input id="lock-ratio-width" placeholder="W" type="text" class="form-control" value="2">
+              <span class="input-group-addon">:</span>
+              <input id="lock-ratio-height" placeholder="H" type="text" class="form-control" value="1">
+                <span class="input-group-btn">
+                  <button id="lock-ratio-btn" class="btn btn-default" type="button">Lock Ratio</button>
+                </span>
+            </div>
+          </div>
+        </div>
+
+
+        <hr/>
+
+        <h4>Change Image</h4>
+        <div>
+          <button class="btn btn-default" id="select-image-1-btn">Select Image 1</button>
+          <button class="btn btn-default" id="select-image-2-btn">Select Image 2</button>
+          <button class="btn btn-default" id="select-image-3-btn">Select Image 3</button>
+        </div>
+
+        <hr/>
+
+        <h4>Centred Aspect Ratios</h4>
+        <div>
+          <button class="btn btn-default" id="select-1_2-btn">Select Centred 1:2</button>
+          <button class="btn btn-default" id="select-2_1-btn">Select Centred 2:1</button>
+          <button class="btn btn-default" id="select-4_3-btn">Select Centred 4:3</button>
+          <button class="btn btn-default" id="select-16_9-btn">Select Centred 16:9</button>
+        </div>
+
+        <hr/>
+
+        <h4>Border</h4>
+        <button class="btn btn-default" id="border-animated-btn">Animated Selection Border</button>
+        <button class="btn btn-default" id="border-static-btn">Static Selection Border</button>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $(function () {
+
+      //
+      // Initialise CropSelect
+      //
+      $('#crop-select').CropSelectJs({
+
+        // Image
+        imageSrc: 'img/001.jpg',
+
+        // What to do when the selected area is resized
+        selectionResize: function(data) {
+          $('#scaled-width').html(data.widthScaledToImage);
+          $('#scaled-height').html(data.heightScaledToImage);
+        },
+
+        // What to do when the selected area is moved
+        selectionMove: function(data) {
+          $('#scaled-x').html(data.xScaledToImage);
+          $('#scaled-y').html(data.yScaledToImage);
+        }
+      });
+
+
+      // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+      $('#select-all-btn').click(function() {
+        $('#crop-select').CropSelectJs('selectEverything');
+      });
+      $('#select-centre-btn').click(function() {
+        $('#crop-select').CropSelectJs('selectCentredSquare');
+      });
+
+
+      $('#unlock-ratio-btn').click(function() {
+        $('#crop-select').CropSelectJs('clearSelectionAspectRatio');
+      });
+      $('#match-ratio-btn').click(function() {
+        var ratio = $('#crop-select').CropSelectJs('getImageAspectRatio');
+        $('#crop-select').CropSelectJs('setSelectionAspectRatio');
+      });
+      $('#lock-ratio-btn').click(function() {
+        var width = parseInt($('#lock-ratio-width').val());
+        var height = parseInt($('#lock-ratio-height').val());
+        $('#crop-select').CropSelectJs('setSelectionAspectRatio', width / height);
+      });
+
+
+
+
+      //
+      // Change the Image
+      //
+      $('#select-image-1-btn').click(function() {
+        $('#crop-select').CropSelectJs('setImageSrc', 'img/001.jpg');
+      });
+      $('#select-image-2-btn').click(function() {
+        $('#crop-select').CropSelectJs('setImageSrc', 'img/002.jpg');
+      });
+      $('#select-image-3-btn').click(function() {
+        $('#crop-select').CropSelectJs('setImageSrc', 'img/003.jpg');
+      });
+
+
+      //
+      // Aspect Ratio Buttons
+      //
+      $('#select-1_2-btn').click(function() { $('#crop-select').CropSelectJs('selectCentredFittedAspectRatio', 1/2); });
+      $('#select-2_1-btn').click(function() { $('#crop-select').CropSelectJs('selectCentredFittedAspectRatio', 2/1); });
+      $('#select-4_3-btn').click(function() { $('#crop-select').CropSelectJs('selectCentredFittedAspectRatio', 4/3); });
+      $('#select-16_9-btn').click(function() { $('#crop-select').CropSelectJs('selectCentredFittedAspectRatio', 16/9); });
+
+
+      //
+      // Border
+      //
+      $('#border-animated-btn').click(function() { $('#crop-select').CropSelectJs('enableAnimatedBorder'); });
+      $('#border-static-btn').click(function() { $('#crop-select').CropSelectJs('disableAnimatedBorder'); });
+
+
+    });
+  </script>
+
+</body>
+</html>

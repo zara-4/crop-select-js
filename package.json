@@ -1,0 +1,39 @@
+{
+  "name": "crop-select-js",
+  "authors": [
+    "Zara 4 <support@zara4.com>"
+  ],
+  "description": "Image crop selection jquery plugin",
+  "version": "1.0.0",
+  "main": "crop-select-js.min.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "CropSelectJS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zara-4/crop-select-js"
+  },
+  "license": "GNU GPL 3.0",
+  "homepage": "https://zara4.com/projects/crop-select-js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependences": {},
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-cssmin": "0.11.0"
+  }
+}
