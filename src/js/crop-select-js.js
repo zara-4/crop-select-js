@@ -909,8 +909,6 @@ CropSelectJs.prototype.clearSelectionAspectRatio = function() {
  * @returns {int}
  */
 CropSelectJs.prototype.getWrapperWidth = function() {
-  //return $(this.wrapper).outerWidth();
-  //console.log($(this.wrapper)[0].getBoundingClientRect().width);
   return $(this.wrapper)[0].getBoundingClientRect().width;
 };
 
@@ -920,7 +918,6 @@ CropSelectJs.prototype.getWrapperWidth = function() {
  * @returns {int}
  */
 CropSelectJs.prototype.getWrapperHeight = function() {
-  //return $(this.wrapper).outerHeight();
   return $(this.wrapper)[0].getBoundingClientRect().height;
 };
 

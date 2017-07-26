@@ -76,6 +76,123 @@ The functions available are listed below:
 
 
 
+-----------------------------
+
+
+# Events
+
+| Event             | Trigger Name                      | Description                                  |
+| :---------------- | :-------------------------------- | -------------------------------------------- |
+| selectionResize   | crop-select-js.selection.resize   | Triggered when the crop selection is resized |
+| selectionMove     | crop-select-js.selection.move     | Triggered when the crop selection is moves   |
+
+
+
+
+
+## Event 'selectionResize'
+
+This event is triggered when the crop selection is resized.
+
+You can attach a callback by either providing a callback function when initialising, or by attaching an event listener.
+
+To attach the event listener when initialising, do:
+
+```
+$('#element').CropSelectJs({
+
+  // Set the image
+  imageSrc: 'path/to/image.jpg',
+
+  // Set the selection resize event handler
+  selectionResize: function(payload) {
+    // Do something...
+  }
+
+});
+```
+
+Alternatively you can attach an event listener (which can be after initialisation) by:
+
+```
+$('#element').on('crop-select-js.selection.resize', function(payload) {
+  // Do something...
+});
+```
+
+
+### Payload Object
+
+The payload that is given on this event will have the structure:
+
+```
+{
+  width,              // The width of the selection on screen
+  height,             // The height of the selection on screen
+  widthScaledToImage, // The width of the selection scaled to the image
+  heightScaledToImage // The height of the selection scaled to the image
+}
+```
+
+
+
+
+
+
+## Event 'selectionMove'
+
+This event is triggered when the crop selection is moved.
+
+You can attach a callback by either providing a callback function when initialising, or by attaching an event listener.
+
+To attach the event listener when initialising, do:
+
+```
+$('#element').CropSelectJs({
+
+  // Set the image
+  imageSrc: 'path/to/image.jpg',
+
+  // Set the selection move event handler
+  selectionMove: function(payload) {
+    // Do something...
+  }
+
+});
+```
+
+Alternatively you can attach an event listener (which can be after initialisation) by:
+
+```
+$('#element').on('crop-select-js.selection.move', function(payload) {
+  // Do something...
+});
+```
+
+
+### Payload Object
+
+The payload that is given on this event will have the structure:
+
+```
+{
+  x,              // The x coordinate of the selection on screen
+  y,              // The y coordinate of the selection on screen
+  xScaledToImage, // The x coordinate of the selection scaled to the image
+  yScaledToImage  // The y coordinate of the selection scaled to the image
+
+  width,              // The width of the selection on screen
+  height,             // The height of the selection on screen
+  widthScaledToImage, // The width of the selection scaled to the image
+  heightScaledToImage // The height of the selection scaled to the image
+}
+```
+
+
+
+-----------------------------
+
+
 # License
 
 CropSelectJs is released under the GNU GPL 3.0 license. [View license](LICENSE.md)
