@@ -180,11 +180,6 @@ The payload that is given on this event will have the structure:
   y,              // The y coordinate of the selection on screen
   xScaledToImage, // The x coordinate of the selection scaled to the image
   yScaledToImage  // The y coordinate of the selection scaled to the image
-
-  width,              // The width of the selection on screen
-  height,             // The height of the selection on screen
-  widthScaledToImage, // The width of the selection scaled to the image
-  heightScaledToImage // The height of the selection scaled to the image
 }
 ```
 
