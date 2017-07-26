@@ -88,6 +88,8 @@ The functions available are listed below:
 
 
 
+-----------------------------
+
 
 
 ## Event 'selectionResize'
@@ -136,6 +138,7 @@ The payload that is given on this event will have the structure:
 
 
 
+-----------------------------
 
 
 
