@@ -98,7 +98,7 @@ You can attach a callback by either providing a callback function when initialis
 
 To attach the event listener when initialising, do:
 
-```
+```javascript
 $('#element').CropSelectJs({
 
   // Set the image
@@ -114,7 +114,7 @@ $('#element').CropSelectJs({
 
 Alternatively you can attach an event listener (which can be after initialisation) by:
 
-```
+```javascript
 $('#element').on('crop-select-js.selection.resize', function(payload) {
   // Do something...
 });
@@ -147,7 +147,7 @@ You can attach a callback by either providing a callback function when initialis
 
 To attach the event listener when initialising, do:
 
-```
+```javascript
 $('#element').CropSelectJs({
 
   // Set the image
@@ -163,7 +163,7 @@ $('#element').CropSelectJs({
 
 Alternatively you can attach an event listener (which can be after initialisation) by:
 
-```
+```javascript
 $('#element').on('crop-select-js.selection.move', function(payload) {
   // Do something...
 });
