@@ -161,8 +161,8 @@
   display: block;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
-  width: 30px;
-  height: 30px;
+  width: 0;
+  height: 0;
   z-index: 10;
 }
 .crop-select-js .crop-wrapper .shadow.left {

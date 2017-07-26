@@ -4,7 +4,7 @@
     "Zara 4 <support@zara4.com>"
   ],
   "description": "Image crop selection jquery plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "crop-select-js.min.js",
   "moduleType": [
     "globals"

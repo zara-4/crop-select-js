@@ -103,7 +103,7 @@ function CropSelectJs(elem, options) {
 
 
   // Set the image if it's been provided
-  if (this.options.imageSrc) { //&& this.options.imageWidth && this.options.imageHeight) {
+  if (this.options.imageSrc) {
     this.setImageSrc(this.options.imageSrc);
   }
 
@@ -168,7 +168,7 @@ CropSelectJs.prototype.initialiseSelectionBox = function() {
       "</div>"
     )[0];
   }
-  this.wrapper.append(this.selectionBox);
+  $(this.wrapper).append(this.selectionBox);
   $(this.selectionBox).on('mousedown', function(e) {
     $this.handleMouseDownInsideSelectionBox(e);
   });
@@ -181,43 +181,43 @@ CropSelectJs.prototype.initialiseSelectionBox = function() {
 CropSelectJs.prototype.initialiseShadows = function() {
 
   // Left Shadow
-  this.cropShadowLeft = this.elem.find(".shadow.left");
-  if (this.cropShadowLeft[0]) {
-    this.cropShadowLeft.detach();
+  this.shadowLeft = this.elem.find(".shadow.left");
+  if (this.shadowLeft[0]) {
+    this.shadowLeft.detach();
   } else {
-    this.cropShadowLeft = $("<div class='shadow left'></div>")[0];
+    this.shadowLeft = $("<div class='shadow left'></div>")[0];
   }
-  this.wrapper.append(this.cropShadowLeft);
+  $(this.wrapper).append(this.shadowLeft);
 
 
   // Right Shadow
-  this.cropShadowRight = this.elem.find(".shadow.right");
-  if (this.cropShadowRight[0]) {
-    this.cropShadowRight.detach();
+  this.shadowRight = this.elem.find(".shadow.right");
+  if (this.shadowRight[0]) {
+    this.shadowRight.detach();
   } else {
-    this.cropShadowRight = $("<div class='shadow right'></div>")[0];
+    this.shadowRight = $("<div class='shadow right'></div>")[0];
   }
-  this.wrapper.append(this.cropShadowRight);
+  $(this.wrapper).append(this.shadowRight);
 
 
   // Top Shadow
-  this.cropShadowTop = this.elem.find(".shadow.top");
-  if (this.cropShadowTop[0]) {
-    this.cropShadowTop.detach();
+  this.shadowTop = this.elem.find(".shadow.top");
+  if (this.shadowTop[0]) {
+    this.shadowTop.detach();
   } else {
-    this.cropShadowTop = $("<div class='shadow top'></div>")[0];
+    this.shadowTop = $("<div class='shadow top'></div>")[0];
   }
-  this.wrapper.append(this.cropShadowTop);
+  $(this.wrapper).append(this.shadowTop);
 
 
   // Bottom Shadow
-  this.cropShadowBottom = this.elem.find(".shadow.bottom");
-  if (this.cropShadowBottom[0]) {
-    this.cropShadowBottom.detach();
+  this.shadowBottom = this.elem.find(".shadow.bottom");
+  if (this.shadowBottom[0]) {
+    this.shadowBottom.detach();
   } else {
-    this.cropShadowBottom = $("<div class='shadow bottom'></div>")[0];
+    this.shadowBottom = $("<div class='shadow bottom'></div>")[0];
   }
-  this.wrapper.append(this.cropShadowBottom);
+  $(this.wrapper).append(this.shadowBottom);
 };
 
 
@@ -231,7 +231,7 @@ CropSelectJs.prototype.initialiseImage = function() {
   } else {
     this.cropImage = $("<img class='crop-image' />")[0];
   }
-  this.wrapper.append(this.cropImage);
+  $(this.wrapper).append(this.cropImage);
 };
 
 
@@ -258,13 +258,13 @@ CropSelectJs.prototype.initialiseImage = function() {
  * @param e
  */
 CropSelectJs.prototype.handleMouseUp = function(e) {
-  this.cropSelectionMouseStartX = null;
-  this.cropSelectionMouseStartY = null;
-  this.cropSelectionStartX = null;
-  this.cropSelectionStartY = null;
-  this.cropSelectionStartWidth = null;
-  this.cropSelectionStartHeight = null;
-  this.cropSelectionResizeHandle = null;
+  this.selectionMouseStartX = null;
+  this.selectionMouseStartY = null;
+  this.selectionStartX = null;
+  this.selectionStartY = null;
+  this.selectionStartWidth = null;
+  this.selectionStartHeight = null;
+  this.selectionResizeHandle = null;
 };
 
 
@@ -274,18 +274,18 @@ CropSelectJs.prototype.handleMouseUp = function(e) {
  * @param e
  */
 CropSelectJs.prototype.handleMouseMove = function(e) {
-  if (this.cropSelectionMouseStartX && this.cropSelectionMouseStartY) {
-    var changeX = e.pageX - this.cropSelectionMouseStartX;
-    var changeY = e.pageY - this.cropSelectionMouseStartY;
+  if (this.selectionMouseStartX && this.selectionMouseStartY) {
+    var changeX = e.pageX - this.selectionMouseStartX;
+    var changeY = e.pageY - this.selectionMouseStartY;
 
     //
     // Handle move
     //
-    if (!this.cropSelectionResizeHandle) {
+    if (!this.selectionResizeHandle) {
 
       // Perform move
-      this.setSelectionBoxX(this.cropSelectionStartX + changeX);
-      this.setSelectionBoxY(this.cropSelectionStartY + changeY);
+      this.setSelectionBoxX(this.selectionStartX + changeX);
+      this.setSelectionBoxY(this.selectionStartY + changeY);
 
       // Trigger move event
       this.triggerSelectionMoveEvent();
@@ -303,21 +303,21 @@ CropSelectJs.prototype.handleMouseMove = function(e) {
 
       // Aspect ratio locked resize
       else {
-        if (this.cropSelectionResizeHandle == 'top-left') {
+        if (this.selectionResizeHandle == 'top-left') {
           this.handleAspectRatioLockedResizeTopLeft(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'top') {
+        } else if (this.selectionResizeHandle == 'top') {
           this.handleAspectRatioLockedResizeTop(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'top-right') {
+        } else if (this.selectionResizeHandle == 'top-right') {
           this.handleAspectRatioLockedResizeTopRight(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'right') {
+        } else if (this.selectionResizeHandle == 'right') {
           this.handleAspectRatioLockedResizeRight(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'bottom-right') {
+        } else if (this.selectionResizeHandle == 'bottom-right') {
           this.handleAspectRatioLockedResizeBottomRight(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'bottom') {
+        } else if (this.selectionResizeHandle == 'bottom') {
           this.handleAspectRatioLockedResizeBottom(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'bottom-left') {
+        } else if (this.selectionResizeHandle == 'bottom-left') {
           this.handleAspectRatioLockedResizeBottomLeft(changeX, changeY, this.options.aspectRatio);
-        } else if (this.cropSelectionResizeHandle == 'left') {
+        } else if (this.selectionResizeHandle == 'left') {
           this.handleAspectRatioLockedResizeLeft(changeX, changeY, this.options.aspectRatio);
         }
       }
@@ -326,7 +326,7 @@ CropSelectJs.prototype.handleMouseMove = function(e) {
       this.triggerSelectionResizeEvent();
 
       // Trigger move event
-      if (this.getSelectionBoxX() != this.cropSelectionStartX || this.getSelectionBoxY() != this.cropSelectionStartY) {
+      if (this.getSelectionBoxX() != this.selectionStartX || this.getSelectionBoxY() != this.selectionStartY) {
         this.triggerSelectionMoveEvent();
       }
 
@@ -344,24 +344,24 @@ CropSelectJs.prototype.handleMouseMove = function(e) {
  */
 CropSelectJs.prototype.handleMouseDownInsideSelectionBox = function(e) {
 
-  this.cropSelectionMouseStartX = e.pageX;
-  this.cropSelectionMouseStartY = e.pageY;
+  this.selectionMouseStartX = e.pageX;
+  this.selectionMouseStartY = e.pageY;
 
-  this.cropSelectionStartX = this.getSelectionBoxX();
-  this.cropSelectionStartY = this.getSelectionBoxY();
-  this.cropSelectionStartWidth = this.getSelectionBoxWidth();
-  this.cropSelectionStartHeight = this.getSelectionBoxHeight();
+  this.selectionStartX = this.getSelectionBoxX();
+  this.selectionStartY = this.getSelectionBoxY();
+  this.selectionStartWidth = this.getSelectionBoxWidth();
+  this.selectionStartHeight = this.getSelectionBoxHeight();
 
   var target = $(e.target);
   if (target.hasClass('handle')) {
-    if (target.hasClass('top-left')) { this.cropSelectionResizeHandle = 'top-left'; }
-    if (target.hasClass('top')) { this.cropSelectionResizeHandle = 'top'; }
-    if (target.hasClass('top-right')) { this.cropSelectionResizeHandle = 'top-right'; }
-    if (target.hasClass('right')) { this.cropSelectionResizeHandle = 'right'; }
-    if (target.hasClass('bottom-right')) { this.cropSelectionResizeHandle = 'bottom-right'; }
-    if (target.hasClass('bottom')) { this.cropSelectionResizeHandle = 'bottom'; }
-    if (target.hasClass('bottom-left')) { this.cropSelectionResizeHandle = 'bottom-left'; }
-    if (target.hasClass('left')) { this.cropSelectionResizeHandle = 'left'; }
+    if (target.hasClass('top-left')) { this.selectionResizeHandle = 'top-left'; }
+    if (target.hasClass('top')) { this.selectionResizeHandle = 'top'; }
+    if (target.hasClass('top-right')) { this.selectionResizeHandle = 'top-right'; }
+    if (target.hasClass('right')) { this.selectionResizeHandle = 'right'; }
+    if (target.hasClass('bottom-right')) { this.selectionResizeHandle = 'bottom-right'; }
+    if (target.hasClass('bottom')) { this.selectionResizeHandle = 'bottom'; }
+    if (target.hasClass('bottom-left')) { this.selectionResizeHandle = 'bottom-left'; }
+    if (target.hasClass('left')) { this.selectionResizeHandle = 'left'; }
   }
 };
 
@@ -371,8 +371,8 @@ CropSelectJs.prototype.handleMouseDownInsideSelectionBox = function(e) {
  */
 CropSelectJs.prototype.handleWrapperResize = function() {
 
-  var changeInWrapperWidth = this.previousWrapperWidth - this.getCropWrapperWidth();
-  var changeInWrapperHeight = this.previousWrapperHeight - this.getCropWrapperHeight();
+  var changeInWrapperWidth = this.previousWrapperWidth - this.getWrapperWidth();
+  var changeInWrapperHeight = this.previousWrapperHeight - this.getWrapperHeight();
 
   // Check for a resize...
   if (changeInWrapperWidth != 0 || changeInWrapperHeight != 0) {
@@ -401,8 +401,8 @@ CropSelectJs.prototype.handleWrapperResize = function() {
 
 
     // Update to detect next resize
-    this.previousWrapperWidth = this.getCropWrapperWidth();
-    this.previousWrapperHeight = this.getCropWrapperHeight();
+    this.previousWrapperWidth = this.getWrapperWidth();
+    this.previousWrapperHeight = this.getWrapperHeight();
 
     // Trigger events
     this.triggerSelectionResizeEvent();
@@ -417,8 +417,8 @@ CropSelectJs.prototype.handleWrapperResize = function() {
 CropSelectJs.prototype.handleImageLoad = function() {
 
   // Record known wrapper size for resizing (height set based on image aspect ratio)
-  this.previousWrapperWidth = this.getCropWrapperWidth();
-  this.previousWrapperHeight = this.getCropWrapperHeight();
+  this.previousWrapperWidth = this.getWrapperWidth();
+  this.previousWrapperHeight = this.getWrapperHeight();
 
   // Perform Selection
   if (this.options.aspectRatio) {
@@ -504,19 +504,19 @@ CropSelectJs.prototype.triggerSelectionMoveEvent = function() {
 CropSelectJs.prototype.handleFreeResize = function(changeX, changeY) {
 
   // Vertical resize
-  if (this.cropSelectionResizeHandle.includes('top')) {
-    this.setSelectionBoxHeight(Math.min(this.cropSelectionStartHeight - changeY, this.cropSelectionStartY + this.cropSelectionStartHeight));
-    this.setSelectionBoxY(Math.min(this.cropSelectionStartY + changeY, this.cropSelectionStartY + this.cropSelectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT));
-  } else if (this.cropSelectionResizeHandle.includes('bottom')) {
-    this.setSelectionBoxHeight(Math.min(this.cropSelectionStartHeight + changeY, this.getCropWrapperHeight() - this.cropSelectionStartY));
+  if (this.selectionResizeHandle.includes('top')) {
+    this.setSelectionBoxHeight(Math.min(this.selectionStartHeight - changeY, this.selectionStartY + this.selectionStartHeight));
+    this.setSelectionBoxY(Math.min(this.selectionStartY + changeY, this.selectionStartY + this.selectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT));
+  } else if (this.selectionResizeHandle.includes('bottom')) {
+    this.setSelectionBoxHeight(Math.min(this.selectionStartHeight + changeY, this.getWrapperHeight() - this.selectionStartY));
   }
 
   // Horizontal resize
-  if (this.cropSelectionResizeHandle.includes('left')) {
-    this.setSelectionBoxWidth(Math.min(this.cropSelectionStartWidth - changeX, this.cropSelectionStartX + this.cropSelectionStartWidth));
-    this.setSelectionBoxX(Math.min(this.cropSelectionStartX + changeX, this.cropSelectionStartX + this.cropSelectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH));
-  } else if (this.cropSelectionResizeHandle.includes('right')) {
-    this.setSelectionBoxWidth(Math.min(this.cropSelectionStartWidth + changeX, this.getCropWrapperWidth() - this.cropSelectionStartX));
+  if (this.selectionResizeHandle.includes('left')) {
+    this.setSelectionBoxWidth(Math.min(this.selectionStartWidth - changeX, this.selectionStartX + this.selectionStartWidth));
+    this.setSelectionBoxX(Math.min(this.selectionStartX + changeX, this.selectionStartX + this.selectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH));
+  } else if (this.selectionResizeHandle.includes('right')) {
+    this.setSelectionBoxWidth(Math.min(this.selectionStartWidth + changeX, this.getWrapperWidth() - this.selectionStartX));
   }
 
 };
@@ -533,14 +533,14 @@ CropSelectJs.prototype.handleFreeResize = function(changeX, changeY) {
  * @param aspectRatio
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeTopLeft = function(changeX, changeY, aspectRatio) {
-  var maxHeight = this.cropSelectionStartY + this.cropSelectionStartHeight;
-  var maxWidth = this.cropSelectionStartX + this.cropSelectionStartWidth;
+  var maxHeight = this.selectionStartY + this.selectionStartHeight;
+  var maxWidth = this.selectionStartX + this.selectionStartWidth;
 
   maxWidth = Math.min(maxWidth, maxHeight * aspectRatio);
   maxHeight = Math.min(maxHeight, maxWidth / aspectRatio);
 
-  var calculatedHeight = Math.min(this.cropSelectionStartHeight - changeY, maxHeight);
-  var calculatedWidth = Math.min(this.cropSelectionStartWidth - changeX, maxWidth);
+  var calculatedHeight = Math.min(this.selectionStartHeight - changeY, maxHeight);
+  var calculatedWidth = Math.min(this.selectionStartWidth - changeX, maxWidth);
 
   var aspectCalculatedWidth = calculatedHeight * aspectRatio;
   var aspectCalculatedHeight = calculatedWidth / aspectRatio;
@@ -554,14 +554,14 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeTopLeft = function(changeX, 
     newWidth = aspectCalculatedWidth;
   }
 
-  var actualChangeInWidth = newWidth - this.cropSelectionStartWidth;
-  var actualChangeInHeight = newHeight - this.cropSelectionStartHeight;
+  var actualChangeInWidth = newWidth - this.selectionStartWidth;
+  var actualChangeInHeight = newHeight - this.selectionStartHeight;
 
-  var newX = this.cropSelectionStartX - actualChangeInWidth;
-  var newY = this.cropSelectionStartY - actualChangeInHeight;
+  var newX = this.selectionStartX - actualChangeInWidth;
+  var newY = this.selectionStartY - actualChangeInHeight;
 
-  newX = Math.min(newX, this.cropSelectionStartX + this.cropSelectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
-  newY = Math.min(newY, this.cropSelectionStartY + this.cropSelectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
+  newX = Math.min(newX, this.selectionStartX + this.selectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
+  newY = Math.min(newY, this.selectionStartY + this.selectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
 
   this.setSelectionBoxWidth(newWidth);
   this.setSelectionBoxHeight(newHeight);
@@ -578,24 +578,24 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeTopLeft = function(changeX, 
  * @param aspectRatio
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeTop = function(changeX, changeY, aspectRatio) {
-  var maxHeight = this.cropSelectionStartY + this.cropSelectionStartHeight;
-  var maxWidth = this.cropSelectionStartX + this.cropSelectionStartWidth;
+  var maxHeight = this.selectionStartY + this.selectionStartHeight;
+  var maxWidth = this.selectionStartX + this.selectionStartWidth;
 
-  var newHeight = Math.min(this.cropSelectionStartHeight - changeY, maxHeight);
+  var newHeight = Math.min(this.selectionStartHeight - changeY, maxHeight);
   var newWidth = newHeight * aspectRatio;
   if (newWidth > maxWidth) {
     newWidth = maxWidth;
     newHeight = newWidth / aspectRatio;
   }
 
-  var actualChangeInWidth = newWidth - this.cropSelectionStartWidth;
-  var actualChangeInHeight = newHeight - this.cropSelectionStartHeight;
+  var actualChangeInWidth = newWidth - this.selectionStartWidth;
+  var actualChangeInHeight = newHeight - this.selectionStartHeight;
 
-  var newX = this.cropSelectionStartX - actualChangeInWidth;
-  var newY = this.cropSelectionStartY - actualChangeInHeight;
+  var newX = this.selectionStartX - actualChangeInWidth;
+  var newY = this.selectionStartY - actualChangeInHeight;
 
-  newX = Math.min(newX, this.cropSelectionStartX + this.cropSelectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
-  newY = Math.min(newY, this.cropSelectionStartY + this.cropSelectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
+  newX = Math.min(newX, this.selectionStartX + this.selectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
+  newY = Math.min(newY, this.selectionStartY + this.selectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
 
   this.setSelectionBoxWidth(newWidth);
   this.setSelectionBoxHeight(newHeight);
@@ -613,15 +613,15 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeTop = function(changeX, chan
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeTopRight = function(changeX, changeY, aspectRatio) {
 
-  var maxWidth = this.getCropWrapperWidth() - this.cropSelectionStartX;
-  var maxHeight = this.cropSelectionStartY + this.cropSelectionStartHeight;
+  var maxWidth = this.getWrapperWidth() - this.selectionStartX;
+  var maxHeight = this.selectionStartY + this.selectionStartHeight;
 
   maxWidth = Math.min(maxWidth, maxHeight * aspectRatio);
   maxHeight = Math.min(maxHeight, maxWidth / aspectRatio);
 
 
-  var calculatedHeight = Math.min(this.cropSelectionStartHeight - changeY, maxHeight);
-  var calculatedWidth = Math.min(this.cropSelectionStartWidth + changeX, maxWidth);
+  var calculatedHeight = Math.min(this.selectionStartHeight - changeY, maxHeight);
+  var calculatedWidth = Math.min(this.selectionStartWidth + changeX, maxWidth);
 
   var aspectCalculatedWidth = calculatedHeight * aspectRatio;
   var aspectCalculatedHeight = calculatedWidth / aspectRatio;
@@ -637,11 +637,11 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeTopRight = function(changeX,
     newWidth = aspectCalculatedWidth;
   }
 
-  var actualChangeInHeight = newHeight - this.cropSelectionStartHeight;
+  var actualChangeInHeight = newHeight - this.selectionStartHeight;
 
-  var newY = this.cropSelectionStartY - actualChangeInHeight;
-  newY = Math.max(newY, this.cropSelectionStartY - maxHeight);
-  newY = Math.min(newY, this.cropSelectionStartY + this.cropSelectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
+  var newY = this.selectionStartY - actualChangeInHeight;
+  newY = Math.max(newY, this.selectionStartY - maxHeight);
+  newY = Math.min(newY, this.selectionStartY + this.selectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
 
 
   this.setSelectionBoxWidth(newWidth);
@@ -659,10 +659,10 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeTopRight = function(changeX,
  * @param aspectRatio
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeRight = function(changeX, changeY, aspectRatio) {
-  var maxHeight = this.getCropWrapperHeight() - this.cropSelectionStartY;
-  var maxWidth = this.getCropWrapperWidth() - this.cropSelectionStartX;
+  var maxHeight = this.getWrapperHeight() - this.selectionStartY;
+  var maxWidth = this.getWrapperWidth() - this.selectionStartX;
 
-  var newWidth = Math.min(this.cropSelectionStartWidth + changeX, maxWidth);
+  var newWidth = Math.min(this.selectionStartWidth + changeX, maxWidth);
   var newHeight = newWidth / aspectRatio;
   if (newHeight > maxHeight) {
     newHeight = maxHeight;
@@ -683,14 +683,14 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeRight = function(changeX, ch
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeBottomRight = function(changeX, changeY, aspectRatio) {
 
-  var maxHeight = this.getCropWrapperHeight() - this.cropSelectionStartY;
-  var maxWidth = this.getCropWrapperWidth() - this.cropSelectionStartX;
+  var maxHeight = this.getWrapperHeight() - this.selectionStartY;
+  var maxWidth = this.getWrapperWidth() - this.selectionStartX;
 
   maxWidth = Math.min(maxWidth, maxHeight * aspectRatio);
   maxHeight = Math.min(maxHeight, maxWidth / aspectRatio);
 
-  var calculatedHeight = Math.min(this.cropSelectionStartHeight + changeY, maxHeight);
-  var calculatedWidth = Math.min(this.cropSelectionStartWidth + changeX, maxWidth);
+  var calculatedHeight = Math.min(this.selectionStartHeight + changeY, maxHeight);
+  var calculatedWidth = Math.min(this.selectionStartWidth + changeX, maxWidth);
 
   var aspectCalculatedWidth = calculatedHeight * aspectRatio;
   var aspectCalculatedHeight = calculatedWidth / aspectRatio;
@@ -717,10 +717,10 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeBottomRight = function(chang
  * @param aspectRatio
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeBottom = function(changeX, changeY, aspectRatio) {
-  var maxHeight = this.getCropWrapperHeight() - this.cropSelectionStartY;
-  var maxWidth = this.getCropWrapperWidth() - this.cropSelectionStartX;
+  var maxHeight = this.getWrapperHeight() - this.selectionStartY;
+  var maxWidth = this.getWrapperWidth() - this.selectionStartX;
 
-  var newHeight = Math.min(this.cropSelectionStartHeight + changeY, maxHeight);
+  var newHeight = Math.min(this.selectionStartHeight + changeY, maxHeight);
   var newWidth = newHeight * aspectRatio;
   if (newWidth > maxWidth) {
     newWidth = maxWidth;
@@ -741,15 +741,15 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeBottom = function(changeX, c
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeBottomLeft = function(changeX, changeY, aspectRatio) {
 
-  var maxWidth = this.cropSelectionStartX + this.cropSelectionStartWidth;
-  var maxHeight = this.getCropWrapperHeight() - this.cropSelectionStartY;
+  var maxWidth = this.selectionStartX + this.selectionStartWidth;
+  var maxHeight = this.getWrapperHeight() - this.selectionStartY;
 
   maxWidth = Math.min(maxWidth, maxHeight * aspectRatio);
   maxHeight = Math.min(maxHeight, maxWidth / aspectRatio);
 
 
-  var calculatedWidth = Math.min(this.cropSelectionStartWidth - changeX, maxWidth);
-  var calculatedHeight = Math.min(this.cropSelectionStartHeight + changeY, maxHeight);
+  var calculatedWidth = Math.min(this.selectionStartWidth - changeX, maxWidth);
+  var calculatedHeight = Math.min(this.selectionStartHeight + changeY, maxHeight);
 
   var aspectCalculatedWidth = calculatedHeight * aspectRatio;
   var aspectCalculatedHeight = calculatedWidth / aspectRatio;
@@ -765,11 +765,11 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeBottomLeft = function(change
     newWidth = aspectCalculatedWidth;
   }
 
-  var actualChangeInWidth = newWidth - this.cropSelectionStartWidth;
+  var actualChangeInWidth = newWidth - this.selectionStartWidth;
 
-  var newX = this.cropSelectionStartX - actualChangeInWidth;
-  newX = Math.max(newX, this.cropSelectionStartX - maxWidth);
-  newX = Math.min(newX, this.cropSelectionStartX + this.cropSelectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
+  var newX = this.selectionStartX - actualChangeInWidth;
+  newX = Math.max(newX, this.selectionStartX - maxWidth);
+  newX = Math.min(newX, this.selectionStartX + this.selectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
 
   this.setSelectionBoxWidth(newWidth);
   this.setSelectionBoxHeight(newHeight);
@@ -787,24 +787,24 @@ CropSelectJs.prototype.handleAspectRatioLockedResizeBottomLeft = function(change
  */
 CropSelectJs.prototype.handleAspectRatioLockedResizeLeft = function(changeX, changeY, aspectRatio) {
 
-  var maxHeight = this.cropSelectionStartY + this.cropSelectionStartHeight;
-  var maxWidth = this.cropSelectionStartX + this.cropSelectionStartWidth;
+  var maxHeight = this.selectionStartY + this.selectionStartHeight;
+  var maxWidth = this.selectionStartX + this.selectionStartWidth;
 
-  var newWidth = Math.min(this.cropSelectionStartHeight - changeX, maxWidth);
+  var newWidth = Math.min(this.selectionStartHeight - changeX, maxWidth);
   var newHeight = newWidth / aspectRatio;
   if (newHeight > maxHeight) {
     newHeight = maxHeight;
     newWidth = newHeight * aspectRatio;
   }
 
-  var actualChangeInWidth = newWidth - this.cropSelectionStartWidth;
-  var actualChangeInHeight = newHeight - this.cropSelectionStartHeight;
+  var actualChangeInWidth = newWidth - this.selectionStartWidth;
+  var actualChangeInHeight = newHeight - this.selectionStartHeight;
 
-  var newX = this.cropSelectionStartX - actualChangeInWidth;
-  var newY = this.cropSelectionStartY - actualChangeInHeight;
+  var newX = this.selectionStartX - actualChangeInWidth;
+  var newY = this.selectionStartY - actualChangeInHeight;
 
-  newX = Math.min(newX, this.cropSelectionStartX + this.cropSelectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
-  newY = Math.min(newY, this.cropSelectionStartY + this.cropSelectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
+  newX = Math.min(newX, this.selectionStartX + this.selectionStartWidth - CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
+  newY = Math.min(newY, this.selectionStartY + this.selectionStartHeight - CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
 
 
   this.setSelectionBoxWidth(newWidth);
@@ -908,8 +908,10 @@ CropSelectJs.prototype.clearSelectionAspectRatio = function() {
  *
  * @returns {int}
  */
-CropSelectJs.prototype.getCropWrapperWidth = function() {
-  return $(this.wrapper).outerWidth();
+CropSelectJs.prototype.getWrapperWidth = function() {
+  //return $(this.wrapper).outerWidth();
+  //console.log($(this.wrapper)[0].getBoundingClientRect().width);
+  return $(this.wrapper)[0].getBoundingClientRect().width;
 };
 
 
@@ -917,8 +919,37 @@ CropSelectJs.prototype.getCropWrapperWidth = function() {
  *
  * @returns {int}
  */
-CropSelectJs.prototype.getCropWrapperHeight = function() {
-  return $(this.wrapper).outerHeight();
+CropSelectJs.prototype.getWrapperHeight = function() {
+  //return $(this.wrapper).outerHeight();
+  return $(this.wrapper)[0].getBoundingClientRect().height;
+};
+
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+/*
+ *      _____               _          _
+ *    / ____|             | |        (_)
+ *   | |      ___   _ __  | |_  __ _  _  _ __    ___  _ __
+ *   | |     / _ \ | '_ \ | __|/ _` || || '_ \  / _ \| '__|
+ *   | |____| (_) || | | || |_| (_| || || | | ||  __/| |
+ *    \_____|\___/ |_| |_| \__|\__,_||_||_| |_| \___||_|
+ *
+ */
+
+
+/**
+ * Get the width of the container this element sits within.
+ *
+ * @returns {int}
+ */
+CropSelectJs.prototype.getContainerWidth = function() {
+  $(this.elem).parent().width();
 };
 
 
@@ -956,7 +987,7 @@ CropSelectJs.prototype.getSelectionBoxX = function() {
  * @param x
  */
 CropSelectJs.prototype.setSelectionBoxX = function(x) {
-  var wrapperWidth = this.getCropWrapperWidth();
+  var wrapperWidth = this.getWrapperWidth();
   var cropSelectionWidth = this.getSelectionBoxWidth();
 
   // Restrict movement to edges
@@ -964,10 +995,10 @@ CropSelectJs.prototype.setSelectionBoxX = function(x) {
   this.selectionBox.style.left = x + 'px';
 
   // Update crop selection shadow
-  this.cropShadowLeft.style.width = x + 'px';
-  this.cropShadowRight.style.width = wrapperWidth - x - cropSelectionWidth + 'px';
-  this.cropShadowTop.style.left = x + 'px';
-  this.cropShadowBottom.style.left = x + 'px';
+  this.shadowLeft.style.width = x + 'px';
+  this.shadowRight.style.width = wrapperWidth - x - cropSelectionWidth + 'px';
+  this.shadowTop.style.left = x + 'px';
+  this.shadowBottom.style.left = x + 'px';
 };
 
 
@@ -986,7 +1017,7 @@ CropSelectJs.prototype.getSelectionBoxY = function() {
  * @param y
  */
 CropSelectJs.prototype.setSelectionBoxY = function(y) {
-  var wrapperHeight = this.getCropWrapperHeight();
+  var wrapperHeight = this.getWrapperHeight();
   var cropSelectionHeight = this.getSelectionBoxHeight();
 
   // Restrict movement to edges
@@ -994,8 +1025,8 @@ CropSelectJs.prototype.setSelectionBoxY = function(y) {
   this.selectionBox.style.top = y + 'px';
 
   // Update crop selection shadow
-  this.cropShadowTop.style.height = y + 'px';
-  this.cropShadowBottom.style.height = wrapperHeight - y - cropSelectionHeight + 'px';
+  this.shadowTop.style.height = y + 'px';
+  this.shadowBottom.style.height = wrapperHeight - y - cropSelectionHeight + 'px';
 };
 
 
@@ -1017,12 +1048,12 @@ CropSelectJs.prototype.setSelectionBoxWidth = function(width) {
   width = Math.max(width, CropSelectJs.MINIMUM_SELECTION_BOX_WIDTH);
   this.selectionBox.style.width = width + "px";
 
-  var wrapperWidth = this.getCropWrapperWidth();
+  var wrapperWidth = this.getWrapperWidth();
 
   // Update crop selection shadow
-  this.cropShadowTop.style.width = width + "px";
-  this.cropShadowBottom.style.width = width + "px";
-  this.cropShadowRight.style.width = wrapperWidth - this.getSelectionBoxX() - width + 'px';
+  this.shadowTop.style.width = width + "px";
+  this.shadowBottom.style.width = width + "px";
+  this.shadowRight.style.width = wrapperWidth - this.getSelectionBoxX() - width + 'px';
 };
 
 
@@ -1042,7 +1073,7 @@ CropSelectJs.prototype.getSelectionBoxHeight = function() {
 CropSelectJs.prototype.setSelectionBoxHeight = function(height) {
   height = Math.max(height, CropSelectJs.MINIMUM_SELECTION_BOX_HEIGHT);
   this.selectionBox.style.height = height + "px";
-  this.cropShadowBottom.style.height = this.getCropWrapperHeight() - this.getSelectionBoxY() - height + 'px';
+  this.shadowBottom.style.height = this.getWrapperHeight() - this.getSelectionBoxY() - height + 'px';
 };
 
 
@@ -1279,8 +1310,8 @@ CropSelectJs.prototype.getScaledSelectionBoxY = function() {
 CropSelectJs.prototype.selectEverything = function() {
   this.setSelectionBoxX(0);
   this.setSelectionBoxY(0);
-  this.setSelectionBoxWidth(this.getCropWrapperWidth());
-  this.setSelectionBoxHeight(this.getCropWrapperHeight());
+  this.setSelectionBoxWidth(this.getWrapperWidth());
+  this.setSelectionBoxHeight(this.getWrapperHeight());
 
   this.triggerSelectionMoveEvent();
   this.triggerSelectionResizeEvent();
@@ -1293,8 +1324,8 @@ CropSelectJs.prototype.selectEverything = function() {
  */
 CropSelectJs.prototype.selectCentredFittedAspectRatio = function(aspectRatio) {
 
-  var wrapperWidth = this.getCropWrapperWidth();
-  var wrapperHeight = this.getCropWrapperHeight();
+  var wrapperWidth = this.getWrapperWidth();
+  var wrapperHeight = this.getWrapperHeight();
 
   var aspectCalculatedWidth = wrapperHeight * aspectRatio;
   var aspectCalculatedHeight = wrapperWidth / aspectRatio;
