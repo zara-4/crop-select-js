@@ -21,6 +21,9 @@ By [Zara 4 image compression](https://zara4.com) service
 You will need to include both `crop-select-js.min.js` and `crop-select-js.min.css` into your web page.
 
 
+ - [Packagist Page](https://packagist.org/packages/zara-4/crop-select-js)
+ - [NPM Page](https://www.npmjs.com/package/crop-select-js)
+
 
 # Basic Example
 
